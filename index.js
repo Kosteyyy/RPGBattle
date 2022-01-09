@@ -9,6 +9,7 @@ class Character {
 		this.maxHealth = data.maxHealth;
 		this.health = this.maxHealth;
 		this.currentMoveIndex = 0;
+		this.moves.forEach(move => move.cooldownRounds=0);
 	}
 	sayCurrentMove() {
 		let move = this.moves[this.currentMoveIndex];
@@ -86,6 +87,7 @@ function playGame() {
 	let evstafi = new Character(magician);
 	evstafi.maxHealth = getHealth();
 	evstafi.health = evstafi.maxHealth;
+	console.log("/----------------Битва началась----------------/");
 	do {
 		luty.setRandomMove();
 		console.log("\nЛютый применит:");
@@ -93,12 +95,13 @@ function playGame() {
 		evstafi.sayAllMoves();
 		evstafi.getCurrentMoveIndex();
 		
-		console.log("Евстафий применит: ");
+		console.log("Евстафий применил: ");
 		evstafi.sayCurrentMove();
 		evstafi.attackedBy(luty);
 		luty.attackedBy(evstafi);
 		evstafi.endRound();
 		luty.endRound();
+
 		if (luty.health <= 0 && evstafi.health <= 0 ) {
 			console.log("Ничья. Лютый и Евстафий погибли.");
 			break;
@@ -109,6 +112,7 @@ function playGame() {
 			console.log("Лютый победил");
 			break;
 		}
+		console.log("\n/----------------Следующий раунд----------------/");
 	}
 	while(true);
 }
